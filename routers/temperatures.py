@@ -21,15 +21,12 @@ def read_temperatures(db: Annotated[Session, Depends(get_db)]):
     return get_all_temperatures(db=db)
 
 
-@router.get("/temperatures/{city_id}/", response_model=schemas.TemperatureRead)
+@router.get("/temperatures/{city_id}/", response_model=list[schemas.TemperatureRead])
 def read_city_temperature(
         city_id: int,
         db: Annotated[Session, Depends(get_db)]
 ):
-    temperature = get_temperatures_by_city(db=db, city_id=city_id)
-    if temperature is None:
-        raise HTTPException(status_code=404, detail="No temperature data")
-    return temperature
+    return get_temperatures_by_city(db, city_id)
 
 
 @router.post("/temperatures/", response_model=schemas.TemperatureCreate)

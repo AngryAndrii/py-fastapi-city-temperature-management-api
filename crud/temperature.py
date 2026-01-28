@@ -12,13 +12,9 @@ def get_all_temperatures(db: Session) -> list[models.Temperature]:
 
 
 def get_temperatures_by_city(db: Session, city_id: int):
-    stmt = (
-        select(models.Temperature)
-        .where(models.Temperature.city_id == city_id)
-        .order_by(desc(models.Temperature.temperature))
-        .limit(1)
-    )
-    return db.scalar(stmt)
+    return db.scalars(
+        select(models.Temperature).where(models.Temperature.city_id == city_id)
+    ).all()
 
 
 def create_temperature(db: Session, temp: TemperatureCreate):
