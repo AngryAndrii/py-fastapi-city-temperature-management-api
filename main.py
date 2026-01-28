@@ -1,17 +1,17 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 
 from core import settings
 from routers import *
 
 app = FastAPI()
 
-app.include_router(
-    cities_router,
-    prefix=settings.API_PREFIX,
-)
+api_router = APIRouter(prefix=settings.API_PREFIX)
+api_router.include_router(cities_router)
+api_router.include_router(temperature_router)
+
+app.include_router(api_router)
 
 
-#
-# @app.get("/")
-# async def root():
-#     return {"message": "Hello Bigger Applications!"}
+@app.get("/")
+async def root():
+    return {"message": "Hello Bigger Applications!"}
