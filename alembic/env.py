@@ -5,9 +5,10 @@ from sqlalchemy import engine_from_config, pool
 from alembic import context
 from core import settings
 
+from models.city import City  # noqa
 from db.database import Base
 
-# from app.temperatures import models as temperature_models
+# from  import models as temperature_models
 
 
 # this is the Alembic Config object, which provides
