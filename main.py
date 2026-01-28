@@ -1,13 +1,17 @@
 from fastapi import FastAPI
 
+from core import settings
+from routers import *
+
 app = FastAPI()
 
+app.include_router(
+    cities_router,
+    prefix=settings.API_PREFIX,
+)
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
 
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+#
+# @app.get("/")
+# async def root():
+#     return {"message": "Hello Bigger Applications!"}
