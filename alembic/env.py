@@ -6,6 +6,7 @@ from alembic import context
 from core import settings
 
 from models.city import City  # noqa
+from models.temperature import Temperature  # noqa
 from db.database import Base
 
 # from  import models as temperature_models
